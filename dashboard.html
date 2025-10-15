@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<h2 class="mb-3">Dashboard</h2>
+{% if error %}
+  <div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+{% if account %}
+  <h4>Email account</h4>
+  <p>You are connected as <strong>{{ account.email_address }}</strong>.</p>
+  <h4>Unread messages</h4>
+  {% if summaries %}
+    <div class="list-group mb-4">
+      {% for msg in summaries %}
+        <a href="{{ url_for('message', uid=msg.uid) }}" class="list-group-item list-group-item-action">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{ msg.subject or '(no subject)' }}</h5>
+            <small class="text-muted">from {{ msg.from }}</small>
+          </div>
+          <p class="mb-1">{{ msg.snippet }}</p>
+        </a>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>No unread messages.</p>
+  {% endif %}
+{% else %}
+  <p>You have not connected an email account yet.  <a href="{{ url_for('connect') }}">Click here to connect.</a></p>
+{% endif %}
+<h4>Recent activity</h4>
+{% if logs %}
+  <ul class="list-group">
+    {% for log in logs %}
+      <li class="list-group-item">
+        <strong>{{ log.timestamp }}</strong> – {{ log.action }}
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No activity yet.</p>
+{% endif %}
+{% endblock %}

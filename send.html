@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<h2 class="mb-3">Compose Email</h2>
+<form method="post">
+  <div class="mb-3">
+    <label for="to" class="form-label">To</label>
+    <input type="text" class="form-control" id="to" name="to" placeholder="Recipient email addresses (comma separated)" required>
+  </div>
+  <div class="mb-3">
+    <label for="subject" class="form-label">Subject</label>
+    <input type="text" class="form-control" id="subject" name="subject" required>
+  </div>
+  <div class="mb-3">
+    <label for="body" class="form-label">Message</label>
+    <textarea class="form-control" id="body" name="body" rows="8" required></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">Send</button>
+  <a href="{{ url_for('index') }}" class="btn btn-secondary ms-2">Cancel</a>
+</form>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<h2 class="mb-3">Manage Users</h2>
+<h4>Create new user</h4>
+<form method="post" class="mb-4">
+  <input type="hidden" name="action" value="create">
+  <div class="row g-2 mb-2">
+    <div class="col-md-4">
+      <input type="text" class="form-control" name="new_username" placeholder="Username" required>
+    </div>
+    <div class="col-md-4">
+      <input type="password" class="form-control" name="new_password" placeholder="Password" required>
+    </div>
+    <div class="col-md-4">
+      <select class="form-select" name="new_role">
+        <option value="user" selected>User</option>
+        <option value="admin">Admin</option>
+      </select>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Create</button>
+</form>
+
+<h4>Existing users</h4>
+<div class="list-group">
+  {% for user in users %}
+    <div class="list-group-item">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <strong>{{ user.username }}</strong> ({{ user.role }})
+        </div>
+        <div>
+          <form method="post" class="d-inline-block me-2">
+            <input type="hidden" name="action" value="update_role">
+            <input type="hidden" name="user_id" value="{{ user.id }}">
+            <select class="form-select form-select-sm d-inline-block w-auto" name="role">
+              <option value="user" {% if user.role == 'user' %}selected{% endif %}>User</option>
+              <option value="admin" {% if user.role == 'admin' %}selected{% endif %}>Admin</option>
+            </select>
+            <button type="submit" class="btn btn-sm btn-outline-primary ms-1">Update</button>
+          </form>
+          <form method="post" class="d-inline-block">
+            <input type="hidden" name="action" value="delete">
+            <input type="hidden" name="user_id" value="{{ user.id }}">
+            <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete this user?')">Delete</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

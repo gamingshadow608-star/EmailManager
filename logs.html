@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<h2 class="mb-3">Activity Logs</h2>
+{% if logs %}
+  <ul class="list-group">
+    {% for log in logs %}
+      <li class="list-group-item">
+        <strong>{{ log.timestamp }}</strong> – {{ log.username }}: {{ log.action }}
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No logs to display.</p>
+{% endif %}
+{% endblock %}
