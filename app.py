@@ -276,7 +276,8 @@ def main(initdb: bool, create_admin: bool):
             click.echo("User already exists")
     if not initdb and not create_admin:
         # run server
-        app.run(debug=True, port=5000)
+        port = int(os.environ.get("PORT", 5000))
+        app.run(host="0.0.0.0", port=port)
 
 
 if __name__ == "__main__":
