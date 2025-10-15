@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<h2 class="mb-3">View Message</h2>
+<div class="mb-3">
+  <strong>From:</strong> {{ msg.from }}
+</div>
+<div class="mb-3">
+  <strong>To:</strong> {{ msg.to }}
+</div>
+<div class="mb-3">
+  <strong>Subject:</strong> {{ msg.subject or '(no subject)' }}
+</div>
+<div class="mb-3">
+  <strong>Date:</strong> {{ msg.date }}
+</div>
+<div class="mb-3">
+  <strong>Body:</strong>
+  <pre class="border p-3 bg-light">{{ msg.body }}</pre>
+</div>
+<a href="{{ url_for('index') }}" class="btn btn-secondary">Back</a>
+{% endblock %}
